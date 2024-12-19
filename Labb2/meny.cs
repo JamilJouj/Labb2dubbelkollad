@@ -96,8 +96,10 @@ namespace Labb2
                 Console.WriteLine("3. Buy products");
                 Console.WriteLine("4. Go to checkout");
                 Console.WriteLine("5. Customer info");
-                Console.WriteLine("6. Exit");
-                Console.WriteLine("7. Logout");
+                Console.WriteLine("6. Add products to DB");
+                Console.WriteLine("7. Delete products from DB");
+                Console.WriteLine("8. Exit");
+                Console.WriteLine("9. Logout");
                 Console.WriteLine("\r\nChoose an option: ");
 
                 ConsoleKeyInfo userChoice = Console.ReadKey();
@@ -121,7 +123,7 @@ namespace Labb2
                     case ConsoleKey.D2:
                     case ConsoleKey.NumPad2:
                         Console.Clear();
-                        manager.ViewProducts();
+                        Connection.DisplayAllProducts();
                         break;
 
 
@@ -150,17 +152,29 @@ namespace Labb2
                         break;
 
 
-                        case ConsoleKey.D6:
-                        case ConsoleKey.NumPad6:
+                        case ConsoleKey.D9:
+                        case ConsoleKey.NumPad9:
                         Console.Clear();
                         Console.WriteLine("Exiting program");
                         Environment.Exit(0);
                         break;
 
+                        case ConsoleKey.D8:
+                        case ConsoleKey.NumPad8:
+                        Console.Clear();
+                        manager.Logout();
+                        break;
+
+                        case ConsoleKey.D6:
+                        case ConsoleKey.NumPad6:
+                        Console.Clear();
+                        Connection.AddProductToDb();
+                        break;
+
                         case ConsoleKey.D7:
                         case ConsoleKey.NumPad7:
                         Console.Clear();
-                        manager.Logout();
+                        Connection.DeleteProduct();
                         break;
                 }
 

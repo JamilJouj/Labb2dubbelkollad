@@ -25,7 +25,7 @@ namespace Labb2
             kund.Cart.Remove(products);
 
         }
-
+        
         public void PrintKundVagn()
         {
             foreach (var item in kund.Cart)

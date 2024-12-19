@@ -190,16 +190,7 @@ namespace Labb2
 
             
         }
-        public void ViewProducts()
-        {
-            Produkt[] products = Produkt.LoadProducts();
-            foreach (Produkt item in products)
-            {
-                Console.WriteLine($"{item.produktName} - {item.price:C}");
-                Console.WriteLine("--------------------------------------------------");
-            }
-        }
-
+        
         public void ShowCustomerInfo(Kund kund)
         {
             Console.WriteLine(kund.ToString());

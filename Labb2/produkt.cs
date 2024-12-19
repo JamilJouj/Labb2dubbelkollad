@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,7 +24,12 @@ namespace Labb2
         }
         public static void BuyProducts(ShoppingCart cart)
         {
-            Produkt[] products = Produkt.LoadProducts();
+            var productsCollection = Connection.GetCollection<BsonDocument>("Products");
+            var productDocuments =  productsCollection.Find(Builders<BsonDocument>.Filter.Empty).ToList();
+            var products = productDocuments.Select(doc => new Produkt(
+                doc["ProductName"].AsString,
+                doc["Price"].ToDouble()
+                )).ToArray();
             for (int i = 0; i < products.Length; i++)
             {
                 Console.WriteLine($"{i + 1}) {products[i].produktName} - {products[i].price:C}");
@@ -61,21 +68,19 @@ namespace Labb2
                 Thread.Sleep(1000);
                 Console.Clear();
             }
+            else if (userchoice.KeyChar == '4')
+            {
+                productIndex = 3;
+                Produkt selectedProduct = products[productIndex];
+                cart.AddProduct(selectedProduct);
+                Console.Clear();
+                Console.WriteLine($"{selectedProduct.produktName} added to cart");
+                Thread.Sleep(1000);
+                Console.Clear();
+            }
 
         }
-        public static Produkt[] LoadProducts()
-        {
-           
-           List<Produkt> ProductList = new List<Produkt>
-           {
-                new Produkt("Choklad", 10),
-                new Produkt("Jordgubbar", 5),
-                new Produkt("Vattenmeloner", 20)
-
-           };
-            return ProductList.ToArray();
-
-        }
+        
     }    
 
     
